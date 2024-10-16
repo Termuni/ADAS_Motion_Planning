@@ -31,7 +31,7 @@ if __name__ == "__main__":
         timegap.append((target_vehicle.x - ego_vehicle.x)/ego_vehicle.vx)
         #controller.ControllerInput(target_vehicle.x, ego_vehicle.x)
         controller.ControllerInput(target_vehicle.x, ego_vehicle.x, ego_vehicle.vx)
-        ego_vehicle.update(controller.u)
+        ego_vehicle.update(controller.space)
         if (time[i]<20):
             a_t = 0.0
         elif (time[i]<40):

@@ -4,15 +4,24 @@ import matplotlib.pyplot as plt
 from VehicleModel_Long import VehicleModel_Long
 
 class PID_Controller_ConstantSpace(object):
-    def __init__(self, step_time, target_x, ego_x, constantSpace=0.0, P_Gain=0.0, D_Gain=0.0, I_Gain=0.0):
+    def __init__(self, step_time, target_x, ego_x, constantSpace=20.0, P_Gain=0.05, D_Gain=0.25, I_Gain=0.02):
         self.space = constantSpace
-        # Code
+        self.Kp = P_Gain
+        self.Kd = D_Gain
+        self.Ki = I_Gain
+        self.dt = step_time
+        self.error_prev = target_x - ego_x
+        self.u = 0
+        self.error_acc = 0
     
     def ControllerInput(self, target_x, ego_x):
-        # Code
-
+        error = self.space-(target_x - ego_x)
+        self.error_d = (error - self.error_prev) / self.dt
+        self.error_i = self.error_acc
+        self.u =  - self.Kp * error - self.Kd * self.error_d+ self.Ki * self.error_i
+        self.error_prev = error
+        self.error_acc = self.error_i 
         
-
 if __name__ == "__main__":
     
     step_time = 0.1
