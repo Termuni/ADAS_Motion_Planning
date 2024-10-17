@@ -77,15 +77,20 @@ def dijkstra(start, goal, map_obstacle):
             while node is not None:
                 optimal_path.append(node.position)
                 node = node.parent
-            
-            plt.plot(cur_node.position[0], cur_node.position[1], 'yo', alpha=0.5)
-            if len(closed_list) % 100 == 0:
-                plt.pause(0.03)
+            # plt.plot(cur_node.position[0], cur_node.position[1], 'yo', alpha=0.5)
+            # if len(closed_list) % 100 == 0:
+            #     plt.pause(0.03)
             return optimal_path
-        
+            
         # If not goal, move from open list to closed list
         open_list.pop(cur_idx)
         closed_list.append(cur_node)
+        print(len(closed_list))
+        if len(closed_list) > 1000:
+            temp_list = closed_list[500:]
+            closed_list.clear()
+            closed_list = temp_list
+            
         
         # Generate child candidate
         action_set = get_action()
@@ -110,8 +115,8 @@ def dijkstra(start, goal, map_obstacle):
                 idx = open_list.index(childNode)
                 if childNode.f < open_list[idx].f:
                     open_list[idx] = childNode
-                    #open_list[idx].parent = childNode.parent
-                    #open_list[idx].f = childNode.f
+                    # open_list[idx].parent = childNode.parent
+                    # open_list[idx].f = childNode.f
             else:
                 open_list.append(childNode)
             
