@@ -12,7 +12,7 @@ class KalmanFilter:
     [x' ] = [[0       (-b/m)     0]][x' ]  + f(t)/m
     [x'']   [[0          0       1]][x'']
     '''
-    def __init__(self, y_Measure_init, step_time=0.1, m=10, k=100, b=2, Q_x=0.02, Q_v=0.05, Q_a = 0.01, R=5.0, errorCovariance_init=10.0):
+    def __init__(self, y_Measure_init, step_time=0.1, m=10, k=100, b=2, Q_x=0.06, Q_v=0.09, Q_a = 0.15, R=5.0, errorCovariance_init=10.0):
         # Code
         # x, x', x'' 이용 예정
         # self.A = np.array([[-k / m, 0.0, 0.0], [0.0, -b * step_time / m , 0.0], [0.0, 0.0, step_time * step_time]])
