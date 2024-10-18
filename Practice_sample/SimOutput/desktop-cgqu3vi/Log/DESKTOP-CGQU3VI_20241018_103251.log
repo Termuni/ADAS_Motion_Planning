@@ -1,0 +1,143 @@
+APPLICATION	CarMaker 13.1 - Car_Generic #4 (win64-13.1)
+COMPILED	jetbrains@fef55bd67061 2024-05-06 14:02:25
+ 
+		I/O Configuration: default
+FIRST_INIT	(internal default used)	2024-10-18 10:32:51
+TIME	0.000
+SIM_END			0s	0m
+IDLE	10:32:52
+SIM_START	unknown	2024-10-18 10:32:53
+TIME	0.000
+SIMULATE	unknown
+
+TIME	71.147
+SIM_END		unknown	71.137s	926.877m
+TIME	86.741
+SIM_START	day7_final	2024-10-18 10:35:34
+TIME	0.089
+		Current random seed value = 1729215334
+TIME	0.000
+SIMULATE	day7_final
+
+TIME	627.766
+SIM_END		day7_final	627.756s	0.00168755m
+TIME	641.156
+SIM_START	day7_final	2024-10-18 10:38:14
+TIME	0.091
+		Current random seed value = 1729215494
+TIME	0.000
+SIMULATE	day7_final
+
+TIME	5.295
+ERROR		Vehicle leaves road at about x=-37.4346, y=29.0021 TireNo=0
+SIM_ABORT	day7_final	5.296s	43.9826m
+TIME	30.036
+SIM_START	day7_final	2024-10-18 10:42:23
+TIME	0.106
+		Current random seed value = 1729215743
+TIME	0.000
+SIMULATE	day7_final
+
+TIME	258.171
+SIM_END		day7_final	258.157s	0.000430485m
+TIME	396.698
+SIM_START	day7_final	2024-10-18 11:05:53
+TIME	0.089
+		Current random seed value = 1729217153
+TIME	0.000
+SIMULATE	day7_final
+
+TIME	222.714
+SIM_END		day7_final	222.704s	0.000342402m
+TIME	234.884
+SIM_START	day7_final	2024-10-18 11:08:04
+TIME	0.014
+ERROR		Traffic object 0: Start position is outside of road
+ERROR		Can't get start position of traffic object 0
+TIME	18.905
+SIM_ABORT	day7_final	0s	0.000342402m
+TIME	21.878
+SIM_START	day7_final	2024-10-18 11:08:34
+TIME	0.014
+ERROR		Traffic object 0: Start position is outside of road
+ERROR		Can't get start position of traffic object 0
+TIME	5.417
+SIM_ABORT	day7_final	0s	0m
+TIME	14.525
+SIM_START	day1_scenario1	2024-10-18 11:10:05
+TIME	0.000
+SIMULATE	day1_scenario1
+
+TIME	29.807
+SIM_END		day1_scenario1	29.799s	495.342m
+TIME	94.603
+SIM_START	day1_scenario1	2024-10-18 11:20:55
+TIME	0.000
+SIMULATE	day1_scenario1
+
+TIME	29.807
+SIM_END		day1_scenario1	29.799s	495.342m
+SIM_START	day1_scenario1	2024-10-18 11:21:02
+TIME	0.000
+SIMULATE	day1_scenario1
+
+TIME	29.807
+SIM_END		day1_scenario1	29.799s	495.342m
+TIME	38.783
+SIM_START	day1_scenario1	2024-10-18 11:22:34
+TIME	0.000
+SIMULATE	day1_scenario1
+
+TIME	29.807
+SIM_END		day1_scenario1	29.799s	495.342m
+SIM_START	day1_scenario1	2024-10-18 11:22:45
+TIME	0.000
+SIMULATE	day1_scenario1
+
+TIME	29.801
+SIM_END		day1_scenario1	29.799s	495.342m
+TIME	52.888
+SIM_START	day1_scenario1	2024-10-18 11:27:03
+TIME	0.000
+SIMULATE	day1_scenario1
+
+TIME	29.801
+SIM_END		day1_scenario1	29.799s	495.342m
+TIME	40.840
+SIM_START	day1_scenario1	2024-10-18 11:29:06
+TIME	0.000
+SIMULATE	day1_scenario1
+
+TIME	29.801
+SIM_END		day1_scenario1	29.799s	495.342m
+SIM_START	day1_scenario3	2024-10-18 11:29:35
+TIME	0.000
+SIMULATE	day1_scenario3
+
+TIME	35.582
+SIM_END		day1_scenario3	35.58s	295.336m
+SIM_START	day1_scenario3	2024-10-18 11:29:53
+TIME	0.000
+SIMULATE	day1_scenario3
+
+TIME	35.588
+SIM_END		day1_scenario3	35.58s	295.336m
+SIM_START	day1_scenario3	2024-10-18 11:30:04
+TIME	0.000
+SIMULATE	day1_scenario3
+
+TIME	35.588
+SIM_END		day1_scenario3	35.58s	295.336m
+SIM_START	day1_scenario3	2024-10-18 11:30:21
+TIME	0.000
+SIMULATE	day1_scenario3
+
+TIME	35.582
+SIM_END		day1_scenario3	35.58s	295.336m
+TIME	43.757
+SIM_START	day1_scenario3	2024-10-18 11:32:02
+TIME	0.000
+SIMULATE	day1_scenario3
+
+TIME	35.582
+SIM_END		day1_scenario3	35.58s	295.336m
