@@ -6,6 +6,27 @@ from ex06_GlobalFrame2LocalFrame import Global2Local
 from ex06_GlobalFrame2LocalFrame import PolynomialFitting
 from ex06_GlobalFrame2LocalFrame import PolynomialValue
 
+class PurePursuit(object):
+    def __init__(self, step_time, coeff, Vx, Ld=2.5):
+        self.Ld = Ld  # Lookahead distance
+        self.Vx = Vx
+        self.step_time = step_time
+        self.coeff = coeff
+        self.u = 0.0  # Steering angle (control output)
+    
+    def ControllerInput(self, coeff, Vx):
+        # 다항식을 기반으로 Lookahead point 계산
+        lookahead_x = self.Ld
+        lookahead_y = 0.0
+        
+        for i in range(len(coeff)):
+            lookahead_y += coeff[i] * (lookahead_x ** i)
+        
+        # 차량의 yaw를 계산하고 조향각을 업데이트
+        alpha = np.arctan2(lookahead_y, lookahead_x)  # 차체에서 본 목표 지점의 각도
+        self.u = np.arctan2(2 * 1.0 * np.sin(alpha) / self.Ld, 1.0)  # 조향각 계산 (1.0: wheelbase)
+
+    
     
 if __name__ == "__main__":
     step_time = 0.1
@@ -17,11 +38,11 @@ if __name__ == "__main__":
     num_point = 5
     x_local = np.arange(0.0, 10.0, 0.5)
 
-    class PD_Controller(object):
-        def __init__(self):
-            # Code
-        def ControllerInput(self):
-            # Code
+    # class PD_Controller(object):
+    #     def __init__(self):
+    #         # Code
+    #     def ControllerInput(self):
+    #         # Code
     
     time = []
     X_ego = []
