@@ -1,0 +1,16 @@
+
+
+SYSTEM_START	-	desktop-cgqu3vi	금 10 18 10:12:47 2024
+
+
+SYSTEM_INFO	Movie NX pro 13.1.0 2024-05-06
+Creating engine cache path: C:/Users/User/AppData/Local/cache/MovieNX/cache_131
+[Warning] Invalid configuration file for Creator "MovieNX". Perhaps the file was not yet created? Path: C:/Users/User/MovieNX/data/View/ViewSettings.cfg)
+Using RenderSettingsProfile: RenderSettings_high.cfg -> template_high.render
+Loading Installed scripts...
+Loading User scripts...
+ApoConnection: Disconnecting...
+Loading Test Run from path C:/ADAS/ADAS_Motion_Planning/Practice_sample/Data/TestRun/.tmp_preview
+[Warning] [Engine] Texture "core_nx/road/trafficsigns/textures/DEU/ParkingLot.dds" is not power of two size 216x216
+[Warning] Invalid configuration file for Creator "MovieNX". Perhaps the file was not yet created? Path: C:/ADAS/ADAS_Motion_Planning/Practice_sample/MovieNX/data/Camera/Camera.cfg)
+ApoConnection: Disconnecting...

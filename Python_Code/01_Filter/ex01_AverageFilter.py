@@ -15,7 +15,7 @@ class AverageFilter:
         return self.y_estimate
     
 if __name__ == "__main__":
-    signal = pd.read_csv("01_filter/Data/example_Filter_1.csv")
+    signal = pd.read_csv("C:/ADAS/ADAS_Motion_Planning/Python_Code/01_filter/Data/example_Filter_1.csv")
     #signal = pd.read_csv("01_filter/Data/example_Filter_2.csv")
 
     y_estimate = AverageFilter(signal.y_measure[0])
