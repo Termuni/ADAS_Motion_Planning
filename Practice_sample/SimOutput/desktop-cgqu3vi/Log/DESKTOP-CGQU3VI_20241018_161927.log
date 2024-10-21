@@ -1,0 +1,10 @@
+APPLICATION	CarMaker 13.1 - Car_Generic #5 (win64-13.1)
+COMPILED	jetbrains@fef55bd67061 2024-05-06 14:02:32
+ 
+		I/O Configuration: default
+SIM_START	day1_scenario1	2024-10-18 16:20:27
+TIME	0.000
+SIMULATE	day1_scenario1
+
+TIME	29.801
+SIM_END		day1_scenario1	29.801s	495.342m
