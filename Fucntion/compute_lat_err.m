@@ -1,7 +1,6 @@
-function [outputArg1,outputArg2] = p(inputArg1,inputArg2)
-%P 이 함수의 요약 설명 위치
+function [lat_err,x_lookahead] = compute_lat_err(poly_coeff, ego_v, lookahead_time)
+% 이 함수의 요약 설명 위치
 %   자세한 설명 위치
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+
 end
 
