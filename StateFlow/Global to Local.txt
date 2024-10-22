@@ -1,0 +1,12 @@
+Every 100ms;
+
+local 위치, yaw = 
+변환(global 위치, yaw);
+
+local waypoint = 
+변환(global waypoint);
+
+local 차량 위치 =
+변환(global 차량 idx들);
+
+END

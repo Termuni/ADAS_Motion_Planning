@@ -1,0 +1,9 @@
+Every ? ms;
+
+Local Data 획득;
+
+케이스 따른 Target Data 획득;
+
+Trajectory 함수 실행;
+
+경로 전달;
