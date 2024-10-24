@@ -1345,28 +1345,28 @@ __MWOPC_PART_BEGIN__ /simulink/plugins/SimscapeModelParametersPlugin.xml
 __MWOPC_PART_BEGIN__ /simulink/ScheduleCore.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <sltp_graph version="1.1" packageUris="http://schema.mathworks.com/mf0/sltp_mm/R2022b_202203181029">
-  <sltp.mm.core.Context type="sltp.mm.core.Context" uuid="a5f107b4-2988-4ec9-92db-8e63686ef6e7">
+  <sltp.mm.core.Context type="sltp.mm.core.Context" uuid="ceb76122-fd73-4e14-a5a2-08bf55b86e5b">
     <priorityDirection>HighNumberLast</priorityDirection>
     <unusedTaskIds>1</unusedTaskIds>
     <editorState type="sltp.mm.core.EditorState" uuid="c5106025-6185-4867-bd67-45fdb4d37166">
       <isSynchronized>true</isSynchronized>
       <panelState type="sltp.mm.core.EditorPanelState" uuid="6ad8540f-0b61-4b68-a437-f6509a4d8a88"/>
     </editorState>
-    <rootTask type="sltp.mm.core.Task" uuid="85aa38ee-4e06-4d21-8ef0-90f333267946">
-      <context type="sltp.mm.core.Context" uuid="a5f107b4-2988-4ec9-92db-8e63686ef6e7"/>
+    <rootTask type="sltp.mm.core.Task" uuid="8e1916ab-0f52-4a3f-9fca-b7591a6858df">
+      <context type="sltp.mm.core.Context" uuid="ceb76122-fd73-4e14-a5a2-08bf55b86e5b"/>
       <explicit>false</explicit>
       <name>Default</name>
       <priority>-2147483648</priority>
-      <subgraph type="sltp.mm.core.Graph" uuid="11a1514b-79de-44ec-adb0-d63baa20b96a">
-        <tasks type="sltp.mm.core.Task" uuid="fb4ced8f-8040-44f6-96e6-359dcc8f954a">
+      <subgraph type="sltp.mm.core.Graph" uuid="cf0b719e-ba26-4275-99f3-d9f79d500a6c">
+        <tasks type="sltp.mm.core.Task" uuid="062a8a48-f55b-4ea4-a31f-652eaae46c83">
           <baseTask>true</baseTask>
-          <context type="sltp.mm.core.Context" uuid="a5f107b4-2988-4ec9-92db-8e63686ef6e7"/>
+          <context type="sltp.mm.core.Context" uuid="ceb76122-fd73-4e14-a5a2-08bf55b86e5b"/>
           <explicit>false</explicit>
           <id>2</id>
           <isTimed>true</isTimed>
           <name>Cont</name>
           <priority>40</priority>
-          <rates type="sltp.mm.core.Rate" uuid="6ee71eee-556d-474f-aeed-441b8757874a">
+          <rates type="sltp.mm.core.Rate" uuid="eaa59ef7-48fa-4325-95a6-be4104f6cca0">
             <annotation>Cont</annotation>
             <color>255</color>
             <identifier>Continuous00</identifier>
@@ -1375,7 +1375,7 @@ __MWOPC_PART_BEGIN__ /simulink/ScheduleCore.xml
             </rateSpec>
             <sti>0</sti>
           </rates>
-          <rates type="sltp.mm.core.Rate" uuid="a5de2aee-663b-4877-8560-801e0a0f403a">
+          <rates type="sltp.mm.core.Rate" uuid="4961fade-84c2-4035-9563-ba50c2b34ba6">
             <annotation>FiM</annotation>
             <color>-2139062017</color>
             <hasBlocks>true</hasBlocks>
@@ -1385,7 +1385,7 @@ __MWOPC_PART_BEGIN__ /simulink/ScheduleCore.xml
             </rateSpec>
             <sti>1</sti>
           </rates>
-          <rates type="sltp.mm.core.Rate" uuid="6376f5ce-6472-4071-92f6-bdcad45952ac">
+          <rates type="sltp.mm.core.Rate" uuid="b994bba4-7bd9-4abb-b644-0dab214965f4">
             <annotation>D1</annotation>
             <color>-436207361</color>
             <hasBlocks>true</hasBlocks>
@@ -6803,6 +6803,7 @@ Subsystem/MATLAB Function4 9</P>
 
             % Store the Frenet path in the array
             frenet_paths(path_count) = fp;
+            fp.s_d
             path_count = path_count + 1;
         end
     end
@@ -6827,7 +6828,7 @@ Subsystem/MATLAB Function4 9</P>
     
     % 유효한 경로까지만 반환
 %     valid_paths = valid_paths(1:valid_count - 1);
-    
+
     % ---- Preallocation ----
     max_valid_paths = length(valid_paths);  % valid_paths의 최대 크기
 
@@ -33081,8 +33082,8 @@ __MWOPC_PART_BEGIN__ /simulink/windowsInfo.xml
           <P Name="LoadSaveID" Class="char">2963</P>
           <P Name="Extents" Class="double">[1491.0, 479.0]</P>
           <P Name="ZoomFactor" Class="double">1.0</P>
-          <P Name="Offset" Class="double">[4347.4544468880295, 1026.191774899321]</P>
-          <P Name="SceneRectInView" Class="double">[4347.4544468880295, 1026.191774899321, 1192.8, 383.2]</P>
+          <P Name="Offset" Class="double">[4043.3177019594941, 889.27375568319019]</P>
+          <P Name="SceneRectInView" Class="double">[4043.3177019594941, 889.27375568319019, 1192.8, 383.2]</P>
         </Object>
         <Object ObjectID="7">
           <P Name="IsActive" Class="logical">1</P>
