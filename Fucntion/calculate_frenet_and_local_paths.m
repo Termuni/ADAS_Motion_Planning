@@ -1,0 +1,185 @@
+function [yaw_value, s_d_value] = calculate_frenet_and_local_paths(si, si_d, si_dd, sf_d, sf_dd, di, di_d, di_dd, df_d, df_dd, opt_d, local_mapx, local_mapy)
+% Define constants
+TARGET_SPEED = 1;
+LANE_WIDTH = 0.39;
+DF_SET = [LANE_WIDTH/2, -LANE_WIDTH/2];
+MIN_T = 1;
+MAX_T = 2;
+DT_T = 1;
+DT = 0.1;
+MAX_POINTS = (MAX_T / DT) + 1;  % 사전 계산된 최대 포인트 수
+max_paths = length(DF_SET) * ((MAX_T - MIN_T) / DT_T + 1); % max_paths 계산
+
+% Cost weights
+K_J = 0.1;
+K_T = 0.1;
+K_D = 1.0;
+K_V = 1.0;
+K_LAT = 1.0;
+K_LON = 1.0;
+V_MAX = 2;        % Maximum velocity (example)
+ACC_MAX = 2;       % Maximum acceleration (example)
+K_MAX = 4;       % Maximum curvature (example)
+
+% Pre-allocate fixed-size struct array
+frenet_paths = repmat(initialize_frenet_path(MAX_POINTS), 1, max_paths);  % 고정 크기의 구조체 배열
+valid_paths = repmat(initialize_frenet_path(MAX_POINTS), 1, max_paths);  % 고정 크기 배열로 지정
+
+path_count = 1;  % Path index tracker
+valid_count = 1;  % Valid path index tracker
+
+% 각 lateral 목표로 경로 생성
+for df = DF_SET
+    for T = MIN_T:DT_T:MAX_T
+        if path_count > max_paths
+            break;  % 최대 경로 수 초과 시 종료
+        end
+
+        % Initialize Frenet path struct
+        fp = initialize_frenet_path(MAX_POINTS);
+
+        % Quintic polynomial for lateral trajectory
+        lat_traj = QuinticPolynomial(di, di_d, di_dd, df, df_d, df_dd, T);
+
+        % Calculate lateral trajectory
+        for i = 1:MAX_POINTS
+            t = (i-1) * DT;
+            if t > T
+                break;
+            end
+            fp.t(i) = t;
+            fp.d(i) = lat_traj.calc_pos(t);
+            fp.d_d(i) = lat_traj.calc_vel(t);
+            fp.d_dd(i) = lat_traj.calc_acc(t);
+            fp.d_ddd(i) = lat_traj.calc_jerk(t);
+        end
+
+        % Longitudinal motion planning
+        lon_traj = QuarticPolynomial(si, si_d, si_dd, sf_d, sf_dd, T);
+
+        % Calculate longitudinal trajectory
+        for i = 1:MAX_POINTS
+            t = fp.t(i);
+            if t > T
+                break;
+            end
+            fp.s(i) = lon_traj.calc_pos(t);
+            fp.s_d(i) = lon_traj.calc_vel(t);
+            fp.s_dd(i) = lon_traj.calc_acc(t);
+            fp.s_ddd(i) = lon_traj.calc_jerk(t);
+        end
+
+        % Calculate costs
+        J_lat = sum(fp.d_ddd .^ 2);  % Lateral jerk
+        J_lon = sum(fp.s_ddd .^ 2);  % Longitudinal jerk
+
+        % Consistency cost
+        d_diff = (fp.d(end) - opt_d) ^ 2;
+        v_diff = (TARGET_SPEED - fp.s_d(end)) ^ 2;
+
+        % Update costs
+        fp.c_lat = K_J * J_lat + K_T * T + K_D * d_diff;
+        fp.c_lon = K_J * J_lon + K_T * T + K_V * v_diff;
+        fp.c_tot = K_LAT * fp.c_lat + K_LON * fp.c_lon;
+
+        % ---- Local 좌표 기반 경로 계산 ----
+        % 이제 Local map에서 바로 경로를 계산합니다.
+        for i = 1:length(fp.s)
+            fp.x(i) = local_mapx(i);  % 이미 Local로 변환된 좌표 사용
+            fp.y(i) = local_mapy(i);  % Local 좌표
+        end
+
+        % Yaw와 ds(거리 차이) 계산
+        for i = 1:length(fp.x) - 1
+            dx = fp.x(i + 1) - fp.x(i);
+            dy = fp.y(i + 1) - fp.y(i);
+            fp.yaw(i) = atan2(dy, dx);    % 방향 각도 계산
+            fp.ds(i) = hypot(dx, dy);     % 두 점 사이의 거리 계산
+        end
+
+        % Yaw와 ds의 마지막 값을 복사
+        fp.yaw(MAX_POINTS) = fp.yaw(MAX_POINTS-1);   % 마지막 yaw 값 복사
+        fp.ds(MAX_POINTS) = fp.ds(MAX_POINTS-1);     % 마지막 ds 값 복사
+
+        % 곡률(kappa) 계산
+        for i = 1:length(fp.yaw) - 1
+            yaw_diff = fp.yaw(i + 1) - fp.yaw(i);
+            yaw_diff = atan2(sin(yaw_diff), cos(yaw_diff));
+            fp.kappa(i) = yaw_diff / fp.ds(i);    % 곡률 계산
+        end
+
+        % Store the Frenet path in the array
+        frenet_paths(path_count) = fp;
+        path_count = path_count + 1;
+    end
+end
+
+% ---- Check Path Validity ----
+for i = 1:length(frenet_paths)
+    fp = frenet_paths(i);
+    acc_squared = abs(fp.s_dd .^ 2 + fp.d_dd .^ 2);
+
+    if any(fp.s_d > V_MAX)  % Max speed check
+        continue;
+    elseif any(acc_squared > ACC_MAX ^ 2)  % Max acceleration check
+        continue;
+    elseif any(abs(fp.kappa) > K_MAX)  % Max curvature check
+        continue;
+    end
+
+    % 유효한 경로를 valid_frenet_paths에 저장
+    valid_paths(valid_count) = fp;
+    valid_count = valid_count + 1;
+end
+
+% ---- 최적 경로 선택 ----
+max_valid_paths = length(valid_paths);  % valid_paths의 최대 크기
+
+opt_traj = repmat(initialize_frenet_path(MAX_POINTS), 1, max_valid_paths);
+
+opt_count = 0;  % 최적 경로를 저장할 인덱스
+min_cost = inf;  % 최소 비용을 무한대로 초기화
+
+% 유효한 경로 중 최소 비용 경로 찾기
+for i = 1:max_valid_paths
+    if valid_paths(i).c_tot < min_cost
+        min_cost = valid_paths(i).c_tot;
+        opt_count = i;  % 최적 경로 카운터 증가
+        opt_traj = valid_paths(i);  % 최적 경로 저장
+    end
+end
+
+% ---- Extract Local Coordinate Values ----
+if ~isempty(opt_traj)
+    max_length = max(arrayfun(@(p) length(p.x), opt_traj));
+
+    % 고정 크기의 NaN 배열 생성 (각 경로마다 max_length에 맞춘다)
+    x_value = NaN(length(opt_traj), max_length);
+    y_value = NaN(length(opt_traj), max_length);
+    yaw_value = NaN(length(opt_traj), max_length);
+    ds_value = NaN(length(opt_traj), max_length);
+    kappa_value = NaN(length(opt_traj), max_length);
+    s_d_value = NaN(length(opt_traj), max_length);
+
+    % 각 경로의 값을 고정 크기 배열에 채움
+    for i = 1:length(opt_traj)
+        path_len = length(opt_traj(i).x);
+
+        % Local 좌표계 값들
+        x_value(i, 1:path_len) = opt_traj(i).x;
+        y_value(i, 1:path_len) = opt_traj(i).y;
+        yaw_value(i, 1:path_len) = opt_traj(i).yaw;
+        ds_value(i, 1:path_len) = opt_traj(i).ds;
+        kappa_value(i, 1:path_len) = opt_traj(i).kappa;
+        s_d_value(i, 1:path_len) = opt_traj(i).s_d;
+    end
+
+else
+    % 유효한 경로가 없는 경우 빈 배열 반환
+    x_value = [];
+    y_value = [];
+    yaw_value = [];
+    ds_value = [];
+    kappa_value = [];
+    s_d_value = [];
+end

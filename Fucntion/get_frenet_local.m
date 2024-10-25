@@ -1,14 +1,14 @@
-function [frenet_s, frenet_d] = get_frenet_local(ego_idx, local_mapx, local_mapy, prev_s)
+function [frenet_s, frenet_d] = get_frenet_local(local_mapx, local_mapy, prev_s)
     % 다음 경로점 계산
-    next_wp = next_waypoint(ego_idx, local_mapx, local_mapy);
+    next_wp = next_waypoint(local_mapx, local_mapy);
     
     prev_wp = max(next_wp - 1, 1);  % 경계 설정
     
     % 경로 벡터와 차량 위치 벡터 계산
     n_x = local_mapx(next_wp) - local_mapx(prev_wp);
     n_y = local_mapy(next_wp) - local_mapy(prev_wp);
-    x_x = local_mapx(ego_idx) - local_mapx(prev_wp);
-    x_y = local_mapy(ego_idx) - local_mapy(prev_wp);
+    x_x = 0 - local_mapx(prev_wp);
+    x_y = 0 - local_mapy(prev_wp);
 
     % 내적을 이용한 투영 벡터 계산
     denom = (n_x^2 + n_y^2);
@@ -43,8 +43,8 @@ function [frenet_s, frenet_d] = get_frenet_local(ego_idx, local_mapx, local_mapy
     
 end
 
-function next_wp = next_waypoint(ego_idx, mapx, mapy)
-    closest_wp = get_closest_waypoints(ego_idx, mapx, mapy);
+function next_wp = next_waypoint(mapx, mapy)
+    closest_wp = get_closest_waypoints(mapx, mapy);
     
     % 경계 처리: 마지막 웨이포인트에 도달하면 마지막 웨이포인트 유지
     if closest_wp >= length(mapx)
@@ -54,7 +54,7 @@ function next_wp = next_waypoint(ego_idx, mapx, mapy)
 
     % 다음 웨이포인트 계산
     map_vec = [mapx(closest_wp + 1) - mapx(closest_wp), mapy(closest_wp + 1) - mapy(closest_wp)];
-    ego_vec = [mapx(ego_idx) - mapx(closest_wp), mapy(ego_idx) - mapy(closest_wp)];
+    ego_vec = [0 - mapx(closest_wp), 0 - mapy(closest_wp)];
 
     direction = sign(dot(map_vec, ego_vec));
 
@@ -66,12 +66,12 @@ function next_wp = next_waypoint(ego_idx, mapx, mapy)
 end
 
 
-function closest_wp = get_closest_waypoints(ego_idx, mapx, mapy)
+function closest_wp = get_closest_waypoints(mapx, mapy)
     min_len = Inf;
     closest_wp = 0;  % 웨이포인트는 1에서 시작
 
     for i = 1:length(mapx)
-        dist = get_dist(mapx(ego_idx), mapy(ego_idx), mapx(i), mapy(i));
+        dist = get_dist(0, 0, mapx(i), mapy(i));
         if dist < min_len
             min_len = dist;
             closest_wp = i;
