@@ -2,3 +2,5 @@
 *.autosave
 *.log
 *.l
+**/slprj
+**/SimOutput
