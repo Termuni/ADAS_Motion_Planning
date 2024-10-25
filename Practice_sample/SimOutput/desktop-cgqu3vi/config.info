@@ -1,6 +1,6 @@
 #INFOFILE1.1 (UTF-8) - Do not remove this line!
-TestRig.StartTime1970Str = 2024-10-21 11:22:43
-TestRig.StartTime1970 = 1729477363
+TestRig.StartTime1970Str = 2024-10-25 08:16:37
+TestRig.StartTime1970 = 1729811797
 CarMaker.Library = win64 13.1 #1
 CarMaker.Compiled = jetbrains@fef55bd67061 2024-05-06 13:53:05
 CarMaker.CompileFlags:
