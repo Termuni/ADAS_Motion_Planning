@@ -24,7 +24,7 @@ function [frenet_s, frenet_d] = get_frenet_local(local_mapx, local_mapy, prev_s)
     proj_y = local_mapy(prev_wp) + proj_norm * n_y;
 
     % Frenet d 값 계산
-    frenet_d = get_dist(local_mapx(ego_idx), local_mapy(ego_idx), proj_x, proj_y);
+    frenet_d = get_dist(0, 0, proj_x, proj_y);
 
     % 방향에 따른 부호 결정 (크로스 프로덕트)
     ego_vec = [x_x, x_y, 0];
