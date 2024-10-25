@@ -50,7 +50,7 @@ function [global_lane1,global_lane2,global_lane3,global_lane4,global_lane_custom
         i_set2 = 11:20;
         i_set3 = 21:30;
         i_set4 = 31:33;
-        i_custom_set = custom_path;
+%         i_custom_set = custom_path;
 
         if ismember(i,i_set1)
             global_lane1(lane1_idx:lane1_idx+idx-2,:) = [x(1:idx-1)', y(1:idx-1)'];
@@ -68,18 +68,18 @@ function [global_lane1,global_lane2,global_lane3,global_lane4,global_lane_custom
             global_lane4(lane4_idx:lane4_idx+idx-2,:) = [x(1:idx-1)', y(1:idx-1)'];
             lane4_idx = lane4_idx + idx - 1;
         end
-        if ismember(i,i_custom_set)
-            global_lane_custom(custom_idx:custom_idx+idx-2,:) = [x(1:idx-1)', y(1:idx-1)'];
-            global_lane_custom_id(custom_idx:custom_idx+idx-2,1) = [i * ones(size(x(1:idx-1)'))];
-            custom_idx = custom_idx + idx - 1;
-        end
+%         if ismember(i,i_custom_set)
+%             global_lane_custom(custom_idx:custom_idx+idx-2,:) = [x(1:idx-1)', y(1:idx-1)'];
+%             global_lane_custom_id(custom_idx:custom_idx+idx-2,1) = [i * ones(size(x(1:idx-1)'))];
+%             custom_idx = custom_idx + idx - 1;
+%         end
     end
     %plot(global_lane1)
     %hold on
     %plot(global_lane2)
     %plot(global_lane3)
     %plot(global_lane4)
-    plot(global_lane_custom)
+%     plot(global_lane_custom)
     %plot(global_lane_custom_id)
     xlim([0 300])
     ylim([-200 200])
