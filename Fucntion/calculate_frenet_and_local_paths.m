@@ -148,13 +148,14 @@ function [yaw_value, s_d_value] = calculate_frenet_and_local_paths(si, si_d, si_
             opt_traj = valid_paths(opt_count);  % 최적 경로 저장
         end
     end
-    opt_count
+    %opt_count
     yaw_value = NaN(1, MAX_POINTS);  
     s_d_value = NaN(1, MAX_POINTS); 
+    opt_traj
 
     % ---- Extract Local Coordinate Values ----
-    if ~isempty(opt_traj)
-%         opt_traj
+    if ~isempty(opt_traj)         
+        %opt_traj
         max_length = max(arrayfun(@(p) length(p.x), opt_traj));
     
         % 고정 크기의 NaN 배열 생성 (각 경로마다 max_length에 맞춘다)
@@ -177,8 +178,11 @@ function [yaw_value, s_d_value] = calculate_frenet_and_local_paths(si, si_d, si_
             kappa_value(i, 1:path_len) = opt_traj(i).kappa;
             s_d_value(i, 1:path_len) = opt_traj(i).s_d;
         end
+        yaw_value
+        s_d_value
     
     else
+        
         % 유효한 경로가 없는 경우 빈 배열 반환
         x_value = [];
         y_value = [];
@@ -186,6 +190,7 @@ function [yaw_value, s_d_value] = calculate_frenet_and_local_paths(si, si_d, si_
         ds_value = [];
         kappa_value = [];
         %s_d_value = [];
+        
     end
 end
 % Helper function to initialize FrenetPath with fixed-size arrays
