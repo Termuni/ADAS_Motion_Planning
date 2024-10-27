@@ -1,0 +1,23 @@
+0.ttc_on_road
+정보 : 일정 거리 내의 ttc를 line별로 출력하는 subsystem
+흐름 : traffic정보를 local로 변환 -> 일정 거리 이내(30)의 traffic정보만 추출 -> traffic정보를 line별로 구분 -> TTC를 계산
+사용 subsystem : ego_vehicle_info(차의 global x, y, yaw 정보), traffic_object_on_road_info(도로 위 traffic들의 info- 8대, final에서도 8대인지 확인이 필요), Get_Traffic_by_Line_new(아래에서 설명)
+
+
+traffic정보를 line별로 구분하는 subsystem 설명(나머지는 은미님이 만드심)
+1. Get_Traffic_by_Line_new
+정보 : line별로 일정 거리 내의 TTC를 출력하는 Subsystem인 ttc_on_road에 사용되는 Subsystem
+사용 Subsystem : Global_Line_Divide, global_to_local_waypoints_junho_new
+입력 : lane별 local waypoints, 도로 위 traffic 정보
+출력 : line별 traffic의 local x,y,v,distance를 traffic_arry1~4로 출력
+
+1-1. Global_Line_Divide
+정보 : waypoints를 line별로 사용하기 위함
+사용 데이터 : waypoints_data.mat, roadprofiles_data.mat(같은 폴더에 있어야함. 아니면 경로 수정해야함)
+입력 : 없음
+출력 : line별 Global x, y를 global_lane1~4로 출력
+
+1-2. global_to_local_waypoints_junho_new
+정보 : global waypoints를 local waypoints로 바꾸기 위해 사용. (원래 준호님이 만든 subsystem에서 입력 부분만 수정)
+
+
