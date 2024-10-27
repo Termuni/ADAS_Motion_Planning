@@ -1,6 +1,6 @@
-function [yaw_value, s_d_value] = calculate_frenet_and_local_paths(si, si_d, si_dd, sf_d, sf_dd, di, di_d, di_dd, df_d, df_dd, opt_d, local_mapx, local_mapy)
+function [yaw_value, s_d_value] = calculate_frenet_and_local_paths(si, si_d, si_dd, sf_d, sf_dd, di, di_d, di_dd, df_d, df_dd, opt_d, local_mapx, local_mapy, target_speed)
     % Define constants
-    TARGET_SPEED = 1;
+    TARGET_SPEED = target_speed;
     LANE_WIDTH = 0.39;
     DF_SET = [LANE_WIDTH/2, -LANE_WIDTH/2];
     MIN_T = 1;
@@ -17,9 +17,9 @@ function [yaw_value, s_d_value] = calculate_frenet_and_local_paths(si, si_d, si_
     K_V = 1.0;
     K_LAT = 1.0;
     K_LON = 1.0;
-    V_MAX = 100;        % Maximum velocity (example)
-    ACC_MAX = 100;       % Maximum acceleration (example)
-    K_MAX = 100;       % Maximum curvature (example)
+    V_MAX = inf;        % Maximum velocity (example)
+    ACC_MAX = inf;       % Maximum acceleration (example)
+    K_MAX = inf;       % Maximum curvature (example)
     
     % Pre-allocate fixed-size struct array
     frenet_paths = repmat(initialize_frenet_path(MAX_POINTS), 1, max_paths);  % 고정 크기의 구조체 배열
@@ -178,8 +178,8 @@ function [yaw_value, s_d_value] = calculate_frenet_and_local_paths(si, si_d, si_
             kappa_value(i, 1:path_len) = opt_traj(i).kappa;
             s_d_value(i, 1:path_len) = opt_traj(i).s_d;
         end
-        yaw_value
-        s_d_value
+%         yaw_value
+%         s_d_value
     
     else
         
